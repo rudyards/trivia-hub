@@ -1,13 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, Link } from 'react-router-dom';
 import { getAllCategories } from '../../services/trivia-api';
 import GamePage from '../Game/GamePage';
+import NavBar from '../../components/NavBar/NavBar'
+import SignupPage from '../Signup/SignupPage';
+import LoginPage from '../Login/LoginPage';
+import userService from '../../utils/userService';
+import tokenService from '../../utils/tokenService';
 
 class App extends Component  {
 
     state = {
-        categories: []
+        categories: [],
+        user: userService.getUser()
     }
 
     getCategory = (idx) => {
@@ -19,20 +25,32 @@ class App extends Component  {
         this.setState({ categories: categories.trivia_categories})
     }
 
+    handleLogout = () => {
+      userService.logout();
+      this.setState({ user: null });
+    }
+
+    handleSignupOrLogin = () => {
+      this.setState({user: userService.getUser()});
+    }
+
     render() {
         return (
             <div className="App">
               <header className="App-header">Trivia Hub</header>
+              <NavBar user={this.state.user} handleLogout = {this.handleLogout} />
               <Switch>
               <Route exact path='/' render={() => 
                 <section>
+
+
                 Welcome To Trivia Hub!
 
                 <br/>Difficulty:
                 <select name="difficulty">
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
                 </select>
 
                 <br/>Category:
@@ -43,13 +61,25 @@ class App extends Component  {
 
                 </select>
 
-
-                <option value=""></option>
                 </section>
                 }/>
-                <Route path='/Game/' render={(props) => 
+                <Route path='/game' render={(props) => 
                     <GamePage />
                 }/>
+                  <Route exact path='/signup' render={({ history }) => 
+                    <SignupPage
+                      history={history}
+                      handleSignupOrLogin={this.handleSignupOrLogin}
+                    />
+                  }/>
+                <Route exact path='/login' render={({ history }) => 
+                  <LoginPage
+                    history={history}
+                    handleSignupOrLogin={this.handleSignupOrLogin}
+                  />
+                }/>
+
+
               </Switch>
             </div>
           );
