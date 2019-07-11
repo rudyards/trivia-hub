@@ -3,6 +3,7 @@ import './App.css';
 import { Route, Switch, Redirect, Link } from 'react-router-dom';
 import { getAllCategories } from '../../services/trivia-api';
 import GamePage from '../Game/GamePage';
+import GameForm from '../../components/GameForm/GameForm'
 import NavBar from '../../components/NavBar/NavBar'
 import SignupPage from '../Signup/SignupPage';
 import LoginPage from '../Login/LoginPage';
@@ -34,11 +35,13 @@ class App extends Component  {
       this.setState({user: userService.getUser()});
     }
 
+
     render() {
         return (
             <div className="App">
               <header className="App-header">Trivia Hub</header>
               <NavBar user={this.state.user} handleLogout = {this.handleLogout} />
+              <br />
               <Switch>
               <Route exact path='/' render={() => 
                 <section>
@@ -46,20 +49,7 @@ class App extends Component  {
 
                 Welcome To Trivia Hub!
 
-                <br/>Difficulty:
-                <select name="difficulty">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-                </select>
-
-                <br/>Category:
-                <select name="category">
-                {this.state.categories.map((category) =>
-                    <option value={category.id}>{category.name}</option>
-                    )}
-
-                </select>
+                <GameForm categories={this.state.categories}/>
 
                 </section>
                 }/>
