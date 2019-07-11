@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import userService from '../../utils/userService';
+import { getQuestions } from '../../services/trivia-api';
 
 class GameForm extends Component {
 
     state = {
-        difficulty: '',
+        difficulty: 'easy',
         category: 0,
     }
 
@@ -19,7 +20,10 @@ class GameForm extends Component {
 
     handleGameStart = async (e) => {
         e.preventDefault()
-        window.location = "/game"
+        // window.location = "/game"
+        const questions = await getQuestions(this.state.difficulty, this.state.category);
+        console.log(questions);
+        console.log(this.state)
     }
 
     render(){
@@ -34,8 +38,8 @@ class GameForm extends Component {
 
             <br/>Category:
             <select name="category" onChange={this.handleChange} value={this.state.category}>
-                {this.props.categories.map((category) =>
-                    <option value={category.id}>{category.name}</option>
+                {this.props.categories.map((category, idx) =>
+                    <option key={idx} value={category.id}>{category.name}</option>
                     )}
             </select>
             <br />
