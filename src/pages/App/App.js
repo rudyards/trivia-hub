@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Route, Switch, Redirect, Link } from 'react-router-dom';
-import { getAllCategories } from '../../services/trivia-api';
+import { getAllCategories, getQuestions } from '../../services/trivia-api';
 import GamePage from '../Game/GamePage';
 import GameForm from '../../components/GameForm/GameForm'
 import NavBar from '../../components/NavBar/NavBar'
@@ -14,7 +14,9 @@ class App extends Component  {
 
     state = {
         categories: [],
-        user: userService.getUser()
+        user: userService.getUser(),
+        difficulty: 'easy',
+        category: 0
     }
 
     getCategory = (idx) => {
@@ -35,6 +37,20 @@ class App extends Component  {
       this.setState({user: userService.getUser()});
     }
 
+    handleGameChange = (e) => {
+      this.setState({
+        // Using ES2015 Computed Property Names
+        [e.target.name]: e.target.value
+      });
+    }
+
+
+    handleGameStart = async (e) => {
+        e.preventDefault()
+        window.location = "/game"
+
+    }
+
 
     render() {
         return (
@@ -49,12 +65,13 @@ class App extends Component  {
 
                 Welcome To Trivia Hub!
 
-                <GameForm categories={this.state.categories}/>
+                <GameForm categories={this.state.categories} 
+                handleGameChange={this.handleGameChange.bind(this)} handleGameStart={this.handleGameStart.bind(this)}/>
 
                 </section>
                 }/>
                 <Route path='/game' render={(props) => 
-                    <GamePage />
+                    <GamePage difficulty={this.state.difficulty} category={this.state.category} />
                 }/>
                   <Route exact path='/signup' render={({ history }) => 
                     <SignupPage
