@@ -26,6 +26,11 @@ class GamePage extends Component {
         e.currentTarget.parentElement.setAttribute("style", "display: none");
     }
 
+    handleGameEnd = (e) => {
+        //this is where the game end logic is going to go and how it's going to save the user's score
+        e.preventDefault()
+    }
+
     render(props){
         const renderHTML = (escapedHTML: string) => React.createElement("div", { dangerouslySetInnerHTML: { __html: escapedHTML } });
 
@@ -46,6 +51,7 @@ class GamePage extends Component {
                     </span>
                     )}
                 <br/><p name="score">Your Score: {this.state.score}</p>
+                <br/><button name="Finish" onClick={this.handleGameEnd}>Finish</button>
             </div>
         );
     }
