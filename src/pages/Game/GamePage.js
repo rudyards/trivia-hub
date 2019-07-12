@@ -17,11 +17,6 @@ class GamePage extends Component {
     render(props){
         const renderHTML = (escapedHTML: string) => React.createElement("div", { dangerouslySetInnerHTML: { __html: escapedHTML } });
 
-        // var eachQuestion = this.state.questions.map((q, i) => {
-        //     <li>
-        //     {q}
-        //     </li>
-        // })
         return (
             <div className="GamePage">
                 Here's the GamePage
@@ -29,6 +24,10 @@ class GamePage extends Component {
                 { this.state.questions.map((q, i) =>
                     <p>
                     {renderHTML(q.question)}
+                    <button>{renderHTML(q.correct_answer)}</button>
+                    {q.incorrect_answers.map((a, i) =>
+                        <button>{renderHTML(a)}</button>
+                        )}
                     </p>
                     )}
                 </ul>
