@@ -47,8 +47,10 @@ class App extends Component  {
 
     handleGameStart = async (e) => {
         e.preventDefault()
-        window.location = "/game"
-
+        localStorage.clear();
+        localStorage.setItem('difficulty', this.state.difficulty);
+        localStorage.setItem('category', this.state.category);
+        window.location="/game"
     }
 
 
@@ -71,7 +73,7 @@ class App extends Component  {
                 </section>
                 }/>
                 <Route path='/game' render={(props) => 
-                    <GamePage difficulty={this.state.difficulty} category={this.state.category} />
+                    <GamePage difficulty={localStorage.difficulty} category={localStorage.category} />
                 }/>
                   <Route exact path='/signup' render={({ history }) => 
                     <SignupPage
