@@ -5,7 +5,8 @@ import { getQuestions } from '../../services/trivia-api';
 class GamePage extends Component {
 
     state = {
-        questions: []
+        questions: [],
+        score: 0
     }
 
     async componentDidMount(){
@@ -13,10 +14,16 @@ class GamePage extends Component {
         this.setState({questions: theseQuestions.results})
     }
 
-    handleGuess = (e) => {
+    handleCorrectGuess = (e) => {
         e.preventDefault()
         e.currentTarget.parentElement.setAttribute("style", "display: none");
-        console.log(e.currentTarget.parentElement)
+        this.setState({score: this.state.score+1})
+        console.log(this.state.score)
+    }
+
+    handleIncorrectGuess = (e) => {
+        e.preventDefault()
+        e.currentTarget.parentElement.setAttribute("style", "display: none");
     }
 
     render(props){
@@ -31,14 +38,14 @@ class GamePage extends Component {
                     <span name={idx}>
                     
                     {renderHTML(q.question)}
-                    <button name="correct" onClick={this.handleGuess}>{renderHTML(q.correct_answer)}</button>
+                    <button name="correct" onClick={this.handleCorrectGuess}>{renderHTML(q.correct_answer)}</button>
                     {q.incorrect_answers.map((a, i) =>
-                        <button name="incorrect" onClick={this.handleGuess}>{renderHTML(a)}</button>
+                        <button name="incorrect" onClick={this.handleIncorrectGuess}>{renderHTML(a)}</button>
                         )}
                     
                     </span>
                     )}
-                
+                <br/><p name="score">Your Score: {this.state.score}</p>
             </div>
         );
     }
