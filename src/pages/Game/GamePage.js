@@ -11,7 +11,12 @@ class GamePage extends Component {
     async componentDidMount(){
         const theseQuestions = await getQuestions(this.props.difficulty, this.props.category);
         this.setState({questions: theseQuestions.results})
-        console.log(this.state.questions[0].question)
+    }
+
+    handleGuess = (e) => {
+        e.preventDefault()
+        e.currentTarget.parentElement.setAttribute("style", "display: none");
+        console.log(e.currentTarget.parentElement)
     }
 
     render(props){
@@ -20,17 +25,20 @@ class GamePage extends Component {
         return (
             <div className="GamePage">
                 Here's the GamePage
-                <ul>
-                { this.state.questions.map((q, i) =>
-                    <p>
+                
+
+                { this.state.questions.map((q, idx) =>
+                    <span name={idx}>
+                    
                     {renderHTML(q.question)}
-                    <button>{renderHTML(q.correct_answer)}</button>
+                    <button name="correct" onClick={this.handleGuess}>{renderHTML(q.correct_answer)}</button>
                     {q.incorrect_answers.map((a, i) =>
-                        <button>{renderHTML(a)}</button>
+                        <button name="incorrect" onClick={this.handleGuess}>{renderHTML(a)}</button>
                         )}
-                    </p>
+                    
+                    </span>
                     )}
-                </ul>
+                
             </div>
         );
     }
