@@ -5,7 +5,6 @@ export function getAllCategories(){
 }
 
 export function getQuestions(difficulty, category){
-    console.log(`${BASE_URL}?amount=10&category=${category}&difficulty=${difficulty}`)
-
-    return fetch(`${BASE_URL}?amount=10&category=${category}&difficulty=${difficulty}`, {mode: "cors"}).then(res => res.json());
+    console.log(`${BASE_URL}?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`)
+    return fetch(`${BASE_URL}?amount=10&category=${category}&difficulty=${difficulty}&type=multiple`, {mode: "cors"}).then(res => res.json());
 }
