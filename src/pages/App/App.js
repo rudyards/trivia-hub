@@ -7,6 +7,7 @@ import GameForm from '../../components/GameForm/GameForm'
 import NavBar from '../../components/NavBar/NavBar'
 import SignupPage from '../Signup/SignupPage';
 import LoginPage from '../Login/LoginPage';
+import HighScores from '../HighScores/HighScores';
 import userService from '../../utils/userService';
 import tokenService from '../../utils/tokenService';
 
@@ -43,6 +44,10 @@ class App extends Component  {
         // Using ES2015 Computed Property Names
         [e.target.name]: e.target.value
       });
+    }
+
+    handleUpdateScores = (scores) => {
+      this.setState({ scores });
     }
 
 
@@ -88,6 +93,15 @@ class App extends Component  {
                     history={history}
                     handleSignupOrLogin={this.handleSignupOrLogin}
                   />
+                }/>
+                <Route exact path='/high-scores' render={() => 
+                  userService.getUser() ? 
+                    <HighScores
+                      
+                      handleUpdateScores={this.handleUpdateScores}
+                    />
+                  :
+                    <Redirect to='/login'/>
                 }/>
 
 

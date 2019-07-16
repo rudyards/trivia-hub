@@ -14,7 +14,7 @@ class GamePage extends Component {
     async componentDidMount(){
         const theseQuestions = await getQuestions(this.props.difficulty, this.props.category);
         console.log(theseQuestions.response_code)
-        if (theseQuestions.response_code == 1){
+        if (theseQuestions.response_code === 1){
             this.setState({warning: 'There are no questions available for this difficulty level of this category.'})
         } else {
             this.setState({questions: theseQuestions.results})
