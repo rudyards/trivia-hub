@@ -16,6 +16,7 @@ class App extends Component  {
         categories: [],
         user: userService.getUser(),
         difficulty: 'easy',
+        categoryString: '',
         category: 0
     }
 
@@ -50,6 +51,7 @@ class App extends Component  {
         localStorage.clear();
         localStorage.setItem('difficulty', this.state.difficulty);
         localStorage.setItem('category', this.state.category);
+        localStorage.setItem('categoryString', this.state.categories.find(o => o.id === this.state.category))
         window.location="/game"
     }
 
@@ -57,7 +59,7 @@ class App extends Component  {
     render() {
         return (
             <div className="App">
-              <header className="App-header">Trivia Hub</header>
+              <header className="App-header"><Link to='/'>Trivia Hub</Link></header>
               <NavBar user={this.state.user} handleLogout = {this.handleLogout} />
               <br />
               <Switch>
@@ -73,7 +75,7 @@ class App extends Component  {
                 </section>
                 }/>
                 <Route path='/game' render={(props) => 
-                    <GamePage difficulty={localStorage.difficulty} category={localStorage.category} />
+                    <GamePage difficulty={localStorage.difficulty} category={localStorage.category} categoryString={localStorage.categoryString} />
                 }/>
                   <Route exact path='/signup' render={({ history }) => 
                     <SignupPage
