@@ -39,15 +39,15 @@ class GamePage extends Component {
 
         var mixedUp = []
 
-        for (var question in questionAnswers){
+        questionAnswers.forEach(function(question){
             let mixAnswers = []
-            mixAnswers.push(question[0].props.children[1])
-            mixAnswers.push(question[0].props.children[2][0])
-            mixAnswers.push(question[0].props.children[2][1])
-            mixAnswers.push(question[0].props.children[2][2])
+            mixAnswers.push(question.props.children[1])
+            mixAnswers.push(question.props.children[2][0])
+            mixAnswers.push(question.props.children[2][1])
+            mixAnswers.push(question.props.children[2][2])
             mixAnswers = shuffler(mixAnswers)
             mixedUp.push(mixAnswers)
-        }
+        })
 
         this.setState({mixAnswers: mixedUp})
         console.log(this.state.mixAnswers);
@@ -77,11 +77,10 @@ class GamePage extends Component {
                 {this.state.questions.map((q, idx) => 
                         <span name={idx} className="question">
                         {renderHTML(q.question)}
-                        {this.state.mixAnswers.idx}
+                        {this.state.mixAnswers[idx]}
                         </span>
 
                     )}
-                {this.state.mixAnswers}
                 <br/><p name="score">Your Score: {this.state.score}</p>
                 <br/><button name="Finish" onClick={this.handleGameEnd}>Finish</button>
             </div>
