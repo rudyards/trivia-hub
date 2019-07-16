@@ -7,50 +7,56 @@ class GamePage extends Component {
     state = {
         questions: [],
         score: 0,
-        mixAnswers: []
+        mixAnswers: [],
+        warning: ''
     }
 
     async componentDidMount(){
         const theseQuestions = await getQuestions(this.props.difficulty, this.props.category);
-        this.setState({questions: theseQuestions.results})
-        const renderHTML = (escapedHTML: string) => React.createElement("div", { dangerouslySetInnerHTML: { __html: escapedHTML } });
-        let questionAnswers = this.state.questions.map((q, idx) =>{
-            return (
-                <span name={idx} className="question">
-                {renderHTML(q.question)}
-                <button name="correct" onClick={this.handleCorrectGuess}>{renderHTML(q.correct_answer)}</button>
-                {q.incorrect_answers.map((a, i) =>
-                    <button name="incorrect" onClick={this.handleIncorrectGuess}>{renderHTML(a)}</button>
-                    )}
-                <br/>
-                </span>
-                )
+        console.log(theseQuestions.response_code)
+        if (theseQuestions.response_code == 1){
+            this.setState({warning: 'There are no questions available for this difficulty level of this category.'})
+        } else {
+            this.setState({questions: theseQuestions.results})
+            const renderHTML = (escapedHTML: string) => React.createElement("div", { dangerouslySetInnerHTML: { __html: escapedHTML } });
+            let questionAnswers = this.state.questions.map((q, idx) =>{
+                return (
+                    <span name={idx} className="question">
+                    {renderHTML(q.question)}
+                    <button name="correct" onClick={this.handleCorrectGuess}>{renderHTML(q.correct_answer)}</button>
+                    {q.incorrect_answers.map((a, i) =>
+                        <button name="incorrect" onClick={this.handleIncorrectGuess}>{renderHTML(a)}</button>
+                        )}
+                    <br/>
+                    </span>
+                    )
 
-            })
-        console.log(questionAnswers)
+                })
+            console.log(questionAnswers)
 
-        function shuffler(a){
-            for(let i = a.length - 1; i > 0; i--){
-                const j = Math.floor(Math.random()*(i+1));
-                [a[i], a[j]] = [a[j], a[i]]
+            function shuffler(a){
+                for(let i = a.length - 1; i > 0; i--){
+                    const j = Math.floor(Math.random()*(i+1));
+                    [a[i], a[j]] = [a[j], a[i]]
+                }
+                return a;
             }
-            return a;
+
+            var mixedUp = []
+
+            questionAnswers.forEach(function(question){
+                let mixAnswers = []
+                mixAnswers.push(question.props.children[1])
+                mixAnswers.push(question.props.children[2][0])
+                mixAnswers.push(question.props.children[2][1])
+                mixAnswers.push(question.props.children[2][2])
+                mixAnswers = shuffler(mixAnswers)
+                mixedUp.push(mixAnswers)
+            })
+
+            this.setState({mixAnswers: mixedUp})
+            console.log(this.state.mixAnswers);
         }
-
-        var mixedUp = []
-
-        questionAnswers.forEach(function(question){
-            let mixAnswers = []
-            mixAnswers.push(question.props.children[1])
-            mixAnswers.push(question.props.children[2][0])
-            mixAnswers.push(question.props.children[2][1])
-            mixAnswers.push(question.props.children[2][2])
-            mixAnswers = shuffler(mixAnswers)
-            mixedUp.push(mixAnswers)
-        })
-
-        this.setState({mixAnswers: mixedUp})
-        console.log(this.state.mixAnswers);
     }
 
     handleCorrectGuess = (e) => {
@@ -78,9 +84,11 @@ class GamePage extends Component {
                         <span name={idx} className="question">
                         {renderHTML(q.question)}
                         {this.state.mixAnswers[idx]}
+                        
                         </span>
 
                     )}
+                {this.state.warning}
                 <br/><p name="score">Your Score: {this.state.score}</p>
                 <button name="Finish" onClick={this.handleGameEnd}>Finish</button>
             </div>
