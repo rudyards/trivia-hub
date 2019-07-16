@@ -82,7 +82,7 @@ class GamePage extends Component {
 
                     )}
                 <br/><p name="score">Your Score: {this.state.score}</p>
-                <br/><button name="Finish" onClick={this.handleGameEnd}>Finish</button>
+                <button name="Finish" onClick={this.handleGameEnd}>Finish</button>
             </div>
         );
     }
