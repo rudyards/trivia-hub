@@ -5,7 +5,7 @@ const scoreSchema = new Schema({
   initials: String,
   correctAnswers: Number,
   difficulty: String,
-  category: Number
+  category: String
 }, {
   timestamps: true
 });

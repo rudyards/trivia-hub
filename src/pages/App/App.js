@@ -10,6 +10,7 @@ import LoginPage from '../Login/LoginPage';
 import HighScores from '../HighScores/HighScores';
 import userService from '../../utils/userService';
 import tokenService from '../../utils/tokenService';
+import scoresService from '../../utils/scoresService';
 
 class App extends Component  {
 
@@ -18,7 +19,8 @@ class App extends Component  {
         user: userService.getUser(),
         difficulty: 'easy',
         categoryString: '',
-        category: 0
+        category: 9,
+        scores: []
     }
 
     getCategory = (idx) => {
@@ -28,6 +30,8 @@ class App extends Component  {
     async componentDidMount(){
         const categories = await getAllCategories();
         this.setState({ categories: categories.trivia_categories})
+        const scores = await scoresService.index();
+        this.setState({ scores });
     }
 
     handleLogout = () => {
@@ -53,10 +57,10 @@ class App extends Component  {
 
     handleGameStart = async (e) => {
         e.preventDefault()
-        localStorage.clear();
         localStorage.setItem('difficulty', this.state.difficulty);
         localStorage.setItem('category', this.state.category);
-        localStorage.setItem('categoryString', this.state.categories.find(o => o.id === this.state.category))
+        localStorage.setItem('categoryString', this.state.categories.find(o => o.id === this.state.category).name)
+        console.log(localStorage.categoryString)
         window.location="/game"
     }
 
@@ -80,7 +84,7 @@ class App extends Component  {
                 </section>
                 }/>
                 <Route path='/game' render={(props) => 
-                    <GamePage difficulty={localStorage.difficulty} category={localStorage.category} categoryString={localStorage.categoryString} />
+                    <GamePage user={this.state.user} difficulty={localStorage.difficulty} category={localStorage.category} categoryString={localStorage.categoryString} />
                 }/>
                   <Route exact path='/signup' render={({ history }) => 
                     <SignupPage
@@ -97,8 +101,9 @@ class App extends Component  {
                 <Route exact path='/high-scores' render={() => 
                   userService.getUser() ? 
                     <HighScores
-                      
+                      user={this.state.user}
                       handleUpdateScores={this.handleUpdateScores}
+                      scores={this.state.scores}
                     />
                   :
                     <Redirect to='/login'/>

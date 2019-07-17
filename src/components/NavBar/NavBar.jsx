@@ -8,6 +8,8 @@ const NavBar = (props) => {
       <Link to='' className='NavBar-link' onClick={props.handleLogout}>LOG OUT</Link>
       &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
       <span className='NavBar-welcome'>WELCOME, {props.user.name}</span>
+      &nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+      <Link to='/high-scores' className='NavBar-link'>HIGH SCORES</Link>
     </div>
     :
     <div>

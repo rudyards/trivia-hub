@@ -5,18 +5,26 @@ import scoresService from '../../utils/scoresService';
 
 class HighScoresPage extends Component {
 
+  state = {
+    scores: []
+  }
+
   async componentDidMount() {
     const scores = await scoresService.index();
+    console.log(scores)
+    this.setState({scores: scores})
     this.props.handleUpdateScores(scores);
   }
 
   render() {
+    
+
     const scoreRows = this.props.scores.map((score, idx) => (
       <tr key={idx}>
         <td><span className="badge">{idx + 1}</span></td>
         <td>{score.initials}</td>
         <td>{score.correctAnswers}</td>
-        <td>{score.category} {score.difficulty}</td>
+        <td>{score.category} ({score.difficulty})</td>
       </tr>
     ));
   
@@ -26,7 +34,7 @@ class HighScoresPage extends Component {
         {this.props.scores.length ? 
           <table className={`${styles.table} table text-info`}>
             <thead>
-              <tr><th width={80}>#</th><th width={100}>Initials</th><th width={100}>Guesses</th><th>Seconds</th></tr>
+              <tr><th width={80}>#</th><th width={100}>Initials</th><th width={100}>Correct Answers</th><th>Category (Difficulty)</th></tr>
             </thead>
             <tbody>
               {scoreRows}

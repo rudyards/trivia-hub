@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Game.css';
 import { getQuestions } from '../../services/trivia-api';
+import scoresService from '../../utils/scoresService';
 
 class GamePage extends Component {
 
@@ -71,8 +72,14 @@ class GamePage extends Component {
     }
 
     handleGameEnd = (e) => {
+        console.log("I tried")
+        let initials = prompt('Enter your initials: ').substr(0, 3);
+        scoresService.create({ initials, correctAnswers: this.state.score, difficulty: this.props.difficulty, category: this.props.categoryString });
+        window.location='/high-scores'
+        
+        
         //this is where the game end logic is going to go and how it's going to save the user's score
-        e.preventDefault()
+
     }
 
     render(props){

@@ -18,6 +18,7 @@ function index() {
 }
 
 function create(score) {
+  console.log(score)
   const options = {
     method: 'POST',
     headers: {
