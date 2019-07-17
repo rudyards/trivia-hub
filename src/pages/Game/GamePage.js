@@ -14,7 +14,6 @@ class GamePage extends Component {
 
     async componentDidMount(){
         const theseQuestions = await getQuestions(this.props.difficulty, this.props.category);
-        console.log(theseQuestions.response_code)
         if (theseQuestions.response_code === 1){
             this.setState({warning: 'There are no questions available for this difficulty level of this category.'})
         } else {
@@ -33,7 +32,7 @@ class GamePage extends Component {
                     )
 
                 })
-            console.log(questionAnswers)
+
 
             function shuffler(a){
                 for(let i = a.length - 1; i > 0; i--){
@@ -56,7 +55,6 @@ class GamePage extends Component {
             })
 
             this.setState({mixAnswers: mixedUp})
-            console.log(this.state.mixAnswers);
         }
     }
 
@@ -72,7 +70,6 @@ class GamePage extends Component {
     }
 
     handleGameEnd = (e) => {
-        console.log("I tried")
         let initials = prompt('Enter your initials: ').substr(0, 3);
         scoresService.create({ initials, correctAnswers: this.state.score, difficulty: this.props.difficulty, category: this.props.categoryString });
         window.location='/high-scores'

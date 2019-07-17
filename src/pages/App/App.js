@@ -59,8 +59,11 @@ class App extends Component  {
         e.preventDefault()
         localStorage.setItem('difficulty', this.state.difficulty);
         localStorage.setItem('category', this.state.category);
-        localStorage.setItem('categoryString', this.state.categories.find(o => o.id === this.state.category).name)
-        console.log(localStorage.categoryString)
+        let categoryString = this.state.categories.find(o => o.id === 18)
+        
+        categoryString = categoryString.name
+        localStorage.setItem('categoryString', categoryString)
+        
         window.location="/game"
     }
 

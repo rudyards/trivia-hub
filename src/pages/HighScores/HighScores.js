@@ -11,7 +11,6 @@ class HighScoresPage extends Component {
 
   async componentDidMount() {
     const scores = await scoresService.index();
-    console.log(scores)
     this.setState({scores: scores})
     this.props.handleUpdateScores(scores);
   }
@@ -44,6 +43,7 @@ class HighScoresPage extends Component {
           <h4 className='text-info'>No High Scores Yet</h4>
         }
         <div>
+          <br/>
           <Link className={`${styles.cancel} btn btn-default btn-sm`} to='/'>Back to Game</Link>
         </div>
       </div>
