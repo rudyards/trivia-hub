@@ -3,7 +3,7 @@
 }
 
 .answered-wrong {
-    color: red;
+    color: darkred;
     font-size: 14px;
 }
 .answered-right {
