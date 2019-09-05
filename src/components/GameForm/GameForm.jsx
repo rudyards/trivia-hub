@@ -6,8 +6,9 @@ class GameForm extends Component {
 
     render(){
         return(
-        <form className="form-horizontal" onSubmit={this.props.handleGameStart}>
-            <br/>Difficulty:
+        <form className="form-horizontal form-container" onSubmit={this.props.handleGameStart}>
+            <br/>
+            <div class="game-form">Difficulty:
             <select name="difficulty" onChange={this.props.handleGameChange} value={this.props.difficulty}>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
@@ -20,8 +21,10 @@ class GameForm extends Component {
                     <option key={idx} value={category.id}>{category.name}</option>
                     )}
             </select>
+            </div>
             <br />
             <button className="btn btn-default">Start Game</button>
+            
         </form>
     )}
 }

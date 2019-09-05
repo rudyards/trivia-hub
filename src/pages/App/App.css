@@ -18,6 +18,20 @@
   text-align: center;
 }
 
+.App-header a {
+  color: white;
+  text-decoration: none;
+}
+
+.game-form {
+  text-align: left;
+  display: inline-block;
+}
+
+.form-container {
+  text-align: center;
+}
+
 .App-link {
   color: #61dafb;
 }
