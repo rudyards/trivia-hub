@@ -76,7 +76,13 @@ class GamePage extends Component {
     }
 
     handleGameEnd = (e) => {
-        let initials = prompt('Enter your initials: ').substr(0, 3);
+        let initialsAttempt = prompt('Enter your initials: ');
+        let initials;
+        if (initialsAttempt != null){
+            initials = initialsAttempt.substr(0, 3);
+        } else {
+            initials = 'NO1'
+        }
         scoresService.create({ initials, correctAnswers: this.state.score, difficulty: this.props.difficulty, category: this.props.categoryString });
         window.location='/high-scores'
         
