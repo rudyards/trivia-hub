@@ -1,3 +1,26 @@
 .question {
     font-size: 14px;
 }
+
+.answered-wrong {
+    color: red;
+    font-size: 14px;
+}
+.answered-right {
+    color: darkgreen;
+    font-size: 14px;
+}
+.answered-right .incorrect {
+    display: none;
+}
+.answered-wrong .incorrect {
+    display: none;
+}
+
+.answered-right .correct {
+    background-color: lightgreen;
+}
+
+.answered-wrong .correct {
+    background-color: red;
+}

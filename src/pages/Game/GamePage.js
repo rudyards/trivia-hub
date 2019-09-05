@@ -23,9 +23,9 @@ class GamePage extends Component {
                 return (
                     <span name={idx} className="question">
                     {renderHTML(q.question)}
-                    <button name="correct" onClick={this.handleCorrectGuess}>{renderHTML(q.correct_answer)}</button>
+                    <button class="correct" onClick={this.handleCorrectGuess}>{renderHTML(q.correct_answer)}</button>
                     {q.incorrect_answers.map((a, i) =>
-                        <button name="incorrect" onClick={this.handleIncorrectGuess}>{renderHTML(a)}</button>
+                        <button class="incorrect" onClick={this.handleIncorrectGuess}>{renderHTML(a)}</button>
                         )}
                     <br/>
                     </span>
@@ -60,13 +60,19 @@ class GamePage extends Component {
 
     handleCorrectGuess = (e) => {
         e.preventDefault()
-        e.currentTarget.parentElement.setAttribute("style", "display: none");
-        this.setState({score: this.state.score+1})
+        let targetClass = e.currentTarget.parentElement.getAttribute("class");
+        if (targetClass !== "answered-wrong" && targetClass !== "answered-right"){
+            e.currentTarget.parentElement.setAttribute("class", "answered-right");
+            this.setState({score: this.state.score+1})
+        }
     }
 
     handleIncorrectGuess = (e) => {
         e.preventDefault()
-        e.currentTarget.parentElement.setAttribute("style", "display: none");
+        let targetClass = e.currentTarget.parentElement.getAttribute("class");
+        if (targetClass !== "answered-wrong" && targetClass !== "answered-right"){
+            e.currentTarget.parentElement.setAttribute("class", "answered-wrong");
+        }
     }
 
     handleGameEnd = (e) => {
