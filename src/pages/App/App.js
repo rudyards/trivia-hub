@@ -28,8 +28,10 @@ class App extends Component  {
     }
 
     async componentDidMount(){
+        //Loads a list of categories from the trivia-api service, which hits the trivia-database api
         const categories = await getAllCategories();
         this.setState({ categories: categories.trivia_categories})
+        //Loads a list of user scores, to be accessed when they go to the high scores page
         const scores = await scoresService.index();
         this.setState({ scores });
     }
@@ -45,7 +47,7 @@ class App extends Component  {
 
     handleGameChange = (e) => {
       this.setState({
-        // Using ES2015 Computed Property Names
+        // As the user changes difficulty or category, we update those internally so that when they load a game, it matches their specifications
         [e.target.name]: e.target.value
       });
     }
@@ -57,6 +59,7 @@ class App extends Component  {
 
     handleGameStart = async (e) => {
         e.preventDefault()
+        //Using localStorage because we switch windows, and can't rely on state to not reset
         localStorage.setItem('difficulty', this.state.difficulty);
         localStorage.setItem('category', this.state.category);
         let categoryString = this.state.categories.find(o => o.id === 18)
@@ -64,6 +67,7 @@ class App extends Component  {
         categoryString = categoryString.name
         localStorage.setItem('categoryString', categoryString)
         
+        //Then we redirect to the game, which will use the difficulty/category in localStorage
         window.location="/game"
     }
 

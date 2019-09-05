@@ -12,7 +12,7 @@ class LoginPage extends Component {
 
   handleChange = (e) => {
     this.setState({
-      // Using ES2015 Computed Property Names
+      // Whenever someone changes their email or password, we set the state equal to it
       [e.target.name]: e.target.value
     });
   }
@@ -26,7 +26,7 @@ class LoginPage extends Component {
       // Successfully signed up - show GamePage
       this.props.history.push('/');
     } catch (err) {
-      // Use a modal or toast in your apps instead of alert
+      // Consider using modal/toast instead? I like the fact that alerts can't be missed though
       alert('Invalid Credentials!');
     }
   }
