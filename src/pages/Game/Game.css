@@ -10,11 +10,13 @@
 
 .answered-wrong {
     color: darkred;
-    font-size: 14px;
+    font-size: 17px;
+    font-weight: bold;
 }
 .answered-right {
-    color: darkgreen;
-    font-size: 14px;
+    color: green;
+    font-size: 17px;
+    font-weight: bold;
 }
 .answered-right .incorrect {
     display: none;
