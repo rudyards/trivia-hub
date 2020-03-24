@@ -107,8 +107,9 @@ class GamePage extends Component {
                         <span name={idx} className="question">
                         {renderHTML(q.question)}
                         {this.state.mixAnswers[idx]}
-                        
+                    
                         </span>
+
 
                     )}
                 {this.state.warning}

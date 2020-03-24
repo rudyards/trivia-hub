@@ -18,6 +18,15 @@
   text-align: center;
 }
 
+select {
+  height: 30px;
+}
+
+button {
+  height: 25px;
+  width:  150px;
+}
+
 .App-header a {
   color: gold;
   text-decoration: none;

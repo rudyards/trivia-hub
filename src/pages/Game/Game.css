@@ -1,5 +1,11 @@
 .question {
-    font-size: 14px;
+    font-size: 17px;
+}
+
+.question button {
+    width: 250px;
+    margin-bottom: 10px;
+    height: 32px;
 }
 
 .answered-wrong {
