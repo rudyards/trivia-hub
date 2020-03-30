@@ -24,8 +24,9 @@ select {
 }
 
 button {
-  height: 25px;
-  width:  150px;
+  height: 35px;
+  width:  180px;
+  font-size: 25px;
 }
 
 .App-header a {

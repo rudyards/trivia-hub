@@ -5,18 +5,20 @@
 .question button {
     width: 250px;
     margin-bottom: 10px;
-    height: 32px;
+    height: auto;
 }
 
 .answered-wrong {
     color: darkred;
     font-size: 17px;
     font-weight: bold;
+    height: auto
 }
 .answered-right {
     color: green;
     font-size: 17px;
     font-weight: bold;
+    height: auto
 }
 .answered-right .incorrect {
     display: none;
