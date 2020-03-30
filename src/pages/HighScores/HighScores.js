@@ -33,7 +33,7 @@ class HighScoresPage extends Component {
         {this.props.scores.length ? 
           <table className={`${styles.table} table text-info`}>
             <thead>
-              <tr><th width={80}>#</th><th width={100}>Initials</th><th width={100}>Correct Answers</th><th>Category (Difficulty)</th></tr>
+              <tr><th width={80}>Rank</th><th width={100}>Initials</th><th width={200}>Correct Answers</th><th>Category (Difficulty)</th></tr>
             </thead>
             <tbody>
               {scoreRows}
